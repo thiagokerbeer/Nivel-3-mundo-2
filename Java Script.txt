@@ -1,0 +1,64 @@
+export class Editora {
+  codEditora: number;
+  nome: string;
+
+  constructor(codEditora: number, nome: string) {
+    this.codEditora = codEditora;
+    this.nome = nome;
+  }
+}
+export class Livro {
+  codigo: number;
+  codEditora: number;
+  titulo: string;
+  resumo: string;
+  autores: string[];
+
+  constructor(codigo: number, codEditora: number, titulo: string, resumo: string, autores: string[]) {
+    this.codigo = codigo;
+    this.codEditora = codEditora;
+    this.titulo = titulo;
+    this.resumo = resumo;
+    this.autores = autores;
+  }
+}
+import { Editora } from "../modelo/Editora";
+
+const editoras: Editora[] = [
+  new Editora(1, "Editora 1"),
+  new Editora(2, "Editora 2"),
+  new Editora(3, "Editora 3"),
+];
+
+export class ControleEditora {
+  getNomeEditora(codEditora: number): string {
+    const editora = editoras.find((e) => e.codEditora === codEditora);
+    return editora ? editora.nome : "";
+  }
+
+  getEditoras(): Editora[] {
+    return editoras;
+  }
+}
+import { Livro } from "../modelo/Livro";
+
+const livros: Livro[] = [
+  new Livro(1, 1, "Livro 1", "Resumo do Livro 1", ["Autor 1"]),
+  new Livro(2, 2, "Livro 2", "Resumo do Livro 2", ["Autor 2"]),
+  new Livro(3, 3, "Livro 3", "Resumo do Livro 3", ["Autor 3"]),
+];
+
+export class ControleLivros {
+  obterLivros(): Livro[] {
+    return livros;
+  }
+
+  incluir(livro: Livro): void {
+    const codigo = livros.reduce((max, l) => (l.codigo > max ? l.codigo : max), 0) + 1;
+    livro.codigo = codigo;
+    livros.push(livro);
+  }
+
+  excluir(codigo: number): void {
+    const index = livros.findIndex((l) => l.codigo === codigo);
+    if (index !== -
